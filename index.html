@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>file-size-converter</title>
+
+    <style>
+        *, *::before, *::after{
+            box-sizing: border-box;
+        }
+        body, html{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>file-size-converter</h1>
+
+    <select id="format-1">
+        <option value="bytes">Bytes</option>
+        <option value="kb">KB</option>
+        <option value="mb">MB</option>
+        <option value="gb">GB</option>
+        <option value="tb">TB</option>
+        <option value="pb">PB</option>
+        <option value="eb">EB</option>
+        <option value="zb">ZB</option>
+        <option value="yb">YB</option>
+    </select>
+
+    <input id="file-1" type="file" multiple>
+
+    <div style="margin-top: 1rem; border-bottom: 1px solid;"></div>
+
+    <div>
+        <h4>Result</h4>
+        <p id="result-1"></p>
+
+        <h4>Humanize</h4>
+        <p id="result-2"></p>
+    </div>
+
+    <script src="dist/file-size-converter.js"></script>
+    <script>
+        function evt(e) {
+            var file = document.getElementById("file-1").files[0];
+            var format = document.getElementById("format-1").value;
+            if (!file) return false;
+
+            var n = file.size; // bytes
+            
+            var converted = fileSizeConverter.convert(n, format, 2);
+            var converted2 = fileSizeConverter.humanize(n, 2);
+
+            document.getElementById("result-1").innerHTML = converted;
+            document.getElementById("result-2").innerHTML = converted2;
+        }
+
+        document.getElementById("file-1").addEventListener("change", evt, false);
+        document.getElementById("format-1").addEventListener("change", evt, false);
+    </script>
+</body>
+
+</html>
